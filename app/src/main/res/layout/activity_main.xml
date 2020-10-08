@@ -38,4 +38,18 @@
         app:layout_constraintHorizontal_bias="0.985"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgFoto" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="15dp"
+        android:id="@+id/btnFlutuante"
+        android:backgroundTint="@color/colorPrimary"
+        app:rippleColor="@color/colorCinza"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        tools:layout_editor_absoluteX="329dp"
+        tools:layout_editor_absoluteY="645dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

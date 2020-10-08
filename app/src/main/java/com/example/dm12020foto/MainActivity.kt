@@ -2,6 +2,8 @@ package com.example.dm12020foto
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -24,24 +26,52 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnCancelar.setOnClickListener {
+            cancelarFoto()
+        }
 
-            imgFoto.setImageDrawable(resources.getDrawable(R.drawable.ic_face))
+        btnFlutuante.setOnClickListener {
+            preparaCamera()
+        }
+
+        btnFlutuante.setOnLongClickListener {
+            cancelarFoto()
         }
 
         btnCamera.setOnClickListener {
+            preparaCamera()
+        }
+    }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-                    val permission = arrayOf(Manifest.permission.CAMERA)
-                    requestPermissions(permission, PERMISSION_CODE)
-                } else {
-                    // a permissão já havia sido dada
-                    openCamera()
-                }
+    private fun cancelarFoto(): Boolean {
+
+        val dialog = AlertDialog.Builder(this)
+
+        dialog.setTitle("Atenção!")
+        dialog.setMessage("Deseja realmente excluir a foto?")
+        dialog.setPositiveButton("Sim") {_: DialogInterface, _: Int -> apagaFoto() }
+        dialog.setNegativeButton("Não", null)
+
+        dialog.show()
+
+        return true
+    }
+
+    private fun apagaFoto() {
+        imgFoto.setImageDrawable(resources.getDrawable(R.drawable.ic_face))
+    }
+
+    private fun preparaCamera() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+                val permission = arrayOf(Manifest.permission.CAMERA)
+                requestPermissions(permission, PERMISSION_CODE)
             } else {
-                // o sistema é mais velho que o marshmallow
+                // a permissão já havia sido dada
                 openCamera()
             }
+        } else {
+            // o sistema é mais velho que o marshmallow
+            openCamera()
         }
     }
 
